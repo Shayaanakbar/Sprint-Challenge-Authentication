@@ -58,11 +58,11 @@ function generateToken(user) {
   const payload = {
     subject: user.id,
     username: user.username,
-    roles: ["user"]
   }
   const options = {
     expiresIn: "1d"
   };
+  console.log('secrets.jwtSecret', secrets.jwtSecret)
   return jwt.sign(payload, secrets.jwtSecret,options)
 }
 
@@ -74,6 +74,7 @@ function getJokes(req, res) {
   axios
     .get('https://icanhazdadjoke.com/search', requestOptions)
     .then(response => {
+      console.log(response);
       res.status(200).json(response.data.results);
     })
     .catch(err => {
